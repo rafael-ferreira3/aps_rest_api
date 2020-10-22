@@ -5,6 +5,7 @@ import br.com.aps_rest_api.endpoint.login.UsuarioLoginQuery;
 import br.com.aps_rest_api.helpers.Encrypt;
 import br.com.aps_rest_api.model.usuario.Usuario;
 import br.com.aps_rest_api.repository.usuario.UsuarioRepository;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
