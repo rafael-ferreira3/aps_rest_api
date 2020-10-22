@@ -1,10 +1,10 @@
 package br.com.aps_rest_api.endpoint.login;
 
+import br.com.aps_rest_api.exception.LoginException;
 import br.com.aps_rest_api.service.login.LoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,14 +19,9 @@ public class LoginEndpoint {
 
     @PostMapping("/logar")
     @ApiOperation(value = "Valida o Login")
-    public ResponseEntity logar(@RequestBody LoginParam loginParam) {
-        UsuarioLoginQuery usuarioLogado = null;
-        try {
-            usuarioLogado = loginService.logar(loginParam);
-            return ResponseEntity.ok(usuarioLogado);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
-        }
+    public ResponseEntity<UsuarioLoginQuery> logar(@RequestBody LoginParam loginParam) throws LoginException {
+        UsuarioLoginQuery usuarioLogado = loginService.logar(loginParam);
+        return ResponseEntity.ok(usuarioLogado);
     }
 
 }
