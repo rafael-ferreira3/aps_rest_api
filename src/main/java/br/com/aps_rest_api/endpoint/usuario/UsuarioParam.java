@@ -2,7 +2,7 @@ package br.com.aps_rest_api.endpoint.usuario;
 
 public class UsuarioParam {
 
-    private long idusuario;
+    private long idUsuario;
 
     private String nome;
 
@@ -10,12 +10,12 @@ public class UsuarioParam {
 
     private String senha;
 
-    public long getIdusuario() {
-        return idusuario;
+    public long getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setIdusuario(long idusuario) {
-        this.idusuario = idusuario;
+    public void setIdUsuario(long idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNome() {

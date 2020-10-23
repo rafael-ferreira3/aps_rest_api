@@ -1,5 +1,7 @@
 package br.com.aps_rest_api.endpoint.login;
 
+import br.com.aps_rest_api.model.usuario.Usuario;
+
 import java.io.Serializable;
 
 public class UsuarioLoginQuery implements Serializable {
@@ -16,6 +18,12 @@ public class UsuarioLoginQuery implements Serializable {
         this.idUsuario = idUsuario;
         this.nome = nome;
         this.username = username;
+    }
+
+    public UsuarioLoginQuery(Usuario usuario){
+        this.idUsuario = usuario.getIdUsuario();
+        this.nome = usuario.getNome();
+        this.username = usuario.getUsername();
     }
 
     public long getIdUsuario() {

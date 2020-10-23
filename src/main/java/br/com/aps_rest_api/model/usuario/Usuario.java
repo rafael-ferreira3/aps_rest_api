@@ -1,7 +1,5 @@
 package br.com.aps_rest_api.model.usuario;
 
-import br.com.aps_rest_api.helpers.Encrypt;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -9,31 +7,42 @@ import java.io.Serializable;
 @Table(name="USUARIO")
 public class Usuario implements Serializable {
 
-    Usuario(){}
+    public Usuario(){}
 
     public Usuario(String nome, String username, String senha){
         this.nome = nome;
         this.username = username;
-        this.senha = Encrypt.toMD5(senha);
+        this.senha = senha;
+    }
+
+    public Usuario(long idUsuario, String nome, String username, String senha){
+        this.idUsuario = idUsuario;
+        this.nome = nome;
+        this.username = username;
+        this.senha = senha;
     }
 
     @Id
+    @Column(name = "idusuario")
     @SequenceGenerator(name="seq_usuario",sequenceName="seq_usuario", allocationSize=1)
     @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="seq_usuario")
-    private long idusuario;
+    private long idUsuario;
 
+    @Column(name = "nome")
     private String nome;
 
+    @Column(name = "username")
     private String username;
 
+    @Column(name = "senha")
     private String senha;
 
-    public long getIdusuario() {
-        return idusuario;
+    public long getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setIdusuario(long idusuario) {
-        this.idusuario = idusuario;
+    public void setIdUsuario(long idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNome() {
@@ -63,7 +72,7 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "Usuario{" +
-                "idusuario=" + idusuario +
+                "idusuario=" + idUsuario +
                 ", nome='" + nome + '\'' +
                 ", username='" + username + '\'' +
                 ", senha='" + senha + '\'' +

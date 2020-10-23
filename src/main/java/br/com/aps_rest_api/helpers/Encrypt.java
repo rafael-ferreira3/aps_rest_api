@@ -7,14 +7,17 @@ import java.security.NoSuchAlgorithmException;
 public class Encrypt {
 
     public static String toMD5(String txt){
-        MessageDigest messageDigest= null;
-        try {
-            messageDigest = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+        if(txt != null){
+            MessageDigest messageDigest= null;
+            try {
+                messageDigest = MessageDigest.getInstance("MD5");
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+            messageDigest.update(txt.getBytes(),0,txt.length());
+            return new BigInteger(1,messageDigest.digest()).toString(16);
         }
-        messageDigest.update(txt.getBytes(),0,txt.length());
-        return new BigInteger(1,messageDigest.digest()).toString(16);
+        return null;
     }
 
 }
