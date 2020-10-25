@@ -17,11 +17,18 @@ public class LoginEndpoint {
     @Autowired
     LoginService loginService;
 
-    @PostMapping("/logar")
-    @ApiOperation(value = "Valida o Login")
-    public ResponseEntity<UsuarioLoginQuery> logar(@RequestBody LoginParam loginParam) throws LoginException {
-        UsuarioLoginQuery usuarioLogado = loginService.logar(loginParam);
+    @PostMapping("/logarUsuario")
+    @ApiOperation(value = "Faz o Login do Usuario")
+    public ResponseEntity<UsuarioLoginQuery> loginUsuario(@RequestBody LoginParam loginParam) throws LoginException {
+        UsuarioLoginQuery usuarioLogado = loginService.logarUsuario(loginParam);
         return ResponseEntity.ok(usuarioLogado);
+    }
+
+    @PostMapping("/logarCliente")
+    @ApiOperation(value = "Faz o Login do Cliente")
+    public ResponseEntity<ClienteLoginQuery> loginCliente(@RequestBody LoginParam loginParam) throws LoginException {
+        ClienteLoginQuery clienteLogado = loginService.logarCliente(loginParam);
+        return ResponseEntity.ok(clienteLogado);
     }
 
 }

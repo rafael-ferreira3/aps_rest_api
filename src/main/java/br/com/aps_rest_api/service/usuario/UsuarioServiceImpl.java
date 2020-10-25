@@ -25,13 +25,9 @@ public class UsuarioServiceImpl implements UsuarioService{
     }
 
     @Override
-    public void criarUsuario(UsuarioParam usuarioParam) throws UsuarioException {
+    public void criarUsuario(UsuarioParam usuarioParam) {
         Usuario usuario = makeUsuario(usuarioParam);
-        try{
-            usuarioRepository.save(usuario);
-        }catch(Exception e){
-            throw new UsuarioException(HttpStatus.BAD_REQUEST,"Usuário já cadastrado");
-        }
+        usuarioRepository.save(usuario);
     }
 
     @Override
