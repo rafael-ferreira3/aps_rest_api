@@ -1,6 +1,5 @@
 package br.com.aps_rest_api.endpoint.usuario;
 
-import br.com.aps_rest_api.endpoint.login.UsuarioLoginQuery;
 import br.com.aps_rest_api.model.usuario.Usuario;
 import br.com.aps_rest_api.service.usuario.UsuarioService;
 import io.swagger.annotations.Api;
@@ -28,13 +27,19 @@ public class UsuarioEndpoint {
 
     @GetMapping("/usuarios")
     @ApiOperation(value = "Lista todos os usuários")
-    public List<Usuario> listaUsuarios(){
+    public List<UsuarioQuery> listaUsuarios(){
         return usuarioService.listaUsuarios();
+    }
+
+    @GetMapping("/usuarios/{idUsuario}")
+    @ApiOperation(value = "Busca usuário por id")
+    public UsuarioQuery buscaUsuario(@PathVariable Long idUsuario){
+        return usuarioService.buscaUsuarioId(idUsuario);
     }
 
     @PutMapping("/usuario")
     @ApiOperation(value = "Atualiza Conta do Usuário")
-    public ResponseEntity<UsuarioLoginQuery> atualizaUsuario(@RequestParam UsuarioParam usuarioParam){
+    public ResponseEntity<UsuarioQuery> atualizaUsuario(@RequestParam UsuarioParam usuarioParam){
         return ResponseEntity.ok(usuarioService.atualizarUsuario(usuarioParam));
     }
 

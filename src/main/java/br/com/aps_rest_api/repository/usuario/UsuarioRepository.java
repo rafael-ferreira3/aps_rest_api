@@ -1,6 +1,5 @@
 package br.com.aps_rest_api.repository.usuario;
 
-import br.com.aps_rest_api.endpoint.login.UsuarioLoginQuery;
 import br.com.aps_rest_api.model.usuario.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

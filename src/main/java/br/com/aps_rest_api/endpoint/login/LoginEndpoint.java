@@ -1,5 +1,6 @@
 package br.com.aps_rest_api.endpoint.login;
 
+import br.com.aps_rest_api.endpoint.usuario.UsuarioQuery;
 import br.com.aps_rest_api.exception.LoginException;
 import br.com.aps_rest_api.service.login.LoginService;
 import io.swagger.annotations.Api;
@@ -19,8 +20,8 @@ public class LoginEndpoint {
 
     @PostMapping("/logarUsuario")
     @ApiOperation(value = "Faz o Login do Usuario")
-    public ResponseEntity<UsuarioLoginQuery> loginUsuario(@RequestBody LoginParam loginParam) throws LoginException {
-        UsuarioLoginQuery usuarioLogado = loginService.logarUsuario(loginParam);
+    public ResponseEntity<UsuarioQuery> loginUsuario(@RequestBody LoginParam loginParam) throws LoginException {
+        UsuarioQuery usuarioLogado = loginService.logarUsuario(loginParam);
         return ResponseEntity.ok(usuarioLogado);
     }
 

@@ -2,7 +2,7 @@ package br.com.aps_rest_api.service.login;
 
 import br.com.aps_rest_api.endpoint.login.ClienteLoginQuery;
 import br.com.aps_rest_api.endpoint.login.LoginParam;
-import br.com.aps_rest_api.endpoint.login.UsuarioLoginQuery;
+import br.com.aps_rest_api.endpoint.usuario.UsuarioQuery;
 import br.com.aps_rest_api.exception.LoginException;
 import br.com.aps_rest_api.helpers.Encrypt;
 import br.com.aps_rest_api.model.cliente.Cliente;
@@ -24,12 +24,12 @@ public class LoginServiceImpl implements LoginService {
     ClienteRepository clienteRepository;
 
     @Override
-    public UsuarioLoginQuery logarUsuario(LoginParam loginParam) throws LoginException {
+    public UsuarioQuery logarUsuario(LoginParam loginParam) throws LoginException {
         Usuario usuarioEncontrado = usuarioRepository.findByUsernameAndSenha(loginParam.getUsername(), Encrypt.toMD5(loginParam.getSenha()));
         if (usuarioEncontrado == null) {
             throw new LoginException(HttpStatus.UNAUTHORIZED, "Usuário ou senha incorreta");
         }
-        return makeUsuarioLogin(usuarioEncontrado);
+        return makeUsuarioQuery(usuarioEncontrado);
     }
 
     @Override
@@ -42,8 +42,8 @@ public class LoginServiceImpl implements LoginService {
         return makeClienteLogin(clienteLogado);
     }
 
-    UsuarioLoginQuery makeUsuarioLogin(Usuario usuairo){
-        return new UsuarioLoginQuery(usuairo.getIdUsuario(), usuairo.getNome(), usuairo.getUsername());
+    UsuarioQuery makeUsuarioQuery(Usuario usuairo){
+        return new UsuarioQuery(usuairo.getIdUsuario(), usuairo.getNome(), usuairo.getUsername());
     }
 
     ClienteLoginQuery makeClienteLogin(Cliente cliente){
