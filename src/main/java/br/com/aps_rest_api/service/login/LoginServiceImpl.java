@@ -1,6 +1,6 @@
 package br.com.aps_rest_api.service.login;
 
-import br.com.aps_rest_api.endpoint.login.ClienteLoginQuery;
+import br.com.aps_rest_api.endpoint.cliente.ClienteQuery;
 import br.com.aps_rest_api.endpoint.login.LoginParam;
 import br.com.aps_rest_api.endpoint.usuario.UsuarioQuery;
 import br.com.aps_rest_api.exception.LoginException;
@@ -33,7 +33,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public ClienteLoginQuery logarCliente(LoginParam loginParam) throws LoginException {
+    public ClienteQuery logarCliente(LoginParam loginParam) throws LoginException {
         Cliente clienteLogado = clienteRepository.findByEmailAndSenha(loginParam.getUsername(), Encrypt.toMD5(loginParam.getSenha()));
         if (clienteLogado == null) {
             throw new LoginException(HttpStatus.UNAUTHORIZED, "Usuário ou senha incorreta");
@@ -46,8 +46,8 @@ public class LoginServiceImpl implements LoginService {
         return new UsuarioQuery(usuairo.getIdUsuario(), usuairo.getNome(), usuairo.getUsername());
     }
 
-    ClienteLoginQuery makeClienteLogin(Cliente cliente){
-        return new ClienteLoginQuery(cliente.getIdCliente(), cliente.getNome(), cliente.getEmail(), cliente.getTelefone(), cliente.getRua(), cliente.getNumero());
+    ClienteQuery makeClienteLogin(Cliente cliente){
+        return new ClienteQuery(cliente.getIdCliente(), cliente.getNome(), cliente.getEmail(), cliente.getTelefone(), cliente.getRua(), cliente.getNumero());
     }
 
 }

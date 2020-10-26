@@ -1,14 +1,14 @@
-package br.com.aps_rest_api.endpoint.login;
+package br.com.aps_rest_api.endpoint.cliente;
 
 import java.io.Serializable;
 
-public class ClienteLoginQuery implements Serializable {
+public class ClienteQuery implements Serializable {
 
-    public ClienteLoginQuery(){
+    public ClienteQuery(){
 
     }
 
-    public ClienteLoginQuery(Long idCliente, String nome, String email, String telefone, String rua, String numero) {
+    public ClienteQuery(Long idCliente, String nome, String email, String telefone, String rua, String numero) {
         this.idCliente = idCliente;
         this.nome = nome;
         this.email = email;

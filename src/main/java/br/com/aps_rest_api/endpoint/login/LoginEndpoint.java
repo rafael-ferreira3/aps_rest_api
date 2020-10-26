@@ -1,5 +1,6 @@
 package br.com.aps_rest_api.endpoint.login;
 
+import br.com.aps_rest_api.endpoint.cliente.ClienteQuery;
 import br.com.aps_rest_api.endpoint.usuario.UsuarioQuery;
 import br.com.aps_rest_api.exception.LoginException;
 import br.com.aps_rest_api.service.login.LoginService;
@@ -27,8 +28,8 @@ public class LoginEndpoint {
 
     @PostMapping("/logarCliente")
     @ApiOperation(value = "Faz o Login do Cliente")
-    public ResponseEntity<ClienteLoginQuery> loginCliente(@RequestBody LoginParam loginParam) throws LoginException {
-        ClienteLoginQuery clienteLogado = loginService.logarCliente(loginParam);
+    public ResponseEntity<ClienteQuery> loginCliente(@RequestBody LoginParam loginParam) throws LoginException {
+        ClienteQuery clienteLogado = loginService.logarCliente(loginParam);
         return ResponseEntity.ok(clienteLogado);
     }
 
