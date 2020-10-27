@@ -2,11 +2,9 @@ package br.com.aps_rest_api.service.cliente;
 
 import br.com.aps_rest_api.endpoint.cliente.ClienteParam;
 import br.com.aps_rest_api.endpoint.cliente.ClienteQuery;
-import br.com.aps_rest_api.endpoint.usuario.UsuarioQuery;
-import br.com.aps_rest_api.exception.ClienteException;
-import br.com.aps_rest_api.helpers.Encrypt;
+import br.com.aps_rest_api.service.exception.ServiceException;
+import br.com.aps_rest_api.service.helpers.Encrypt;
 import br.com.aps_rest_api.model.cliente.Cliente;
-import br.com.aps_rest_api.model.usuario.Usuario;
 import br.com.aps_rest_api.repository.cliente.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +21,7 @@ public class ClienteServiceImpl implements ClienteService {
     ClienteRepository clienteRepository;
 
     @Override
-    public void cadastrarCliente(ClienteParam clienteParam) throws ClienteException {
+    public void cadastrarCliente(ClienteParam clienteParam) throws ServiceException {
 
         Cliente cliente = makeCliente(clienteParam);
 
@@ -38,20 +36,20 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public ClienteQuery buscaCliente(Long idCliente) throws ClienteException {
+    public ClienteQuery buscaCliente(Long idCliente) throws ServiceException {
         Optional<Cliente> cliente = clienteRepository.findById(idCliente);
         if(!cliente.isPresent()){
-            throw new ClienteException(HttpStatus.BAD_REQUEST,"Cliente ID: "+idCliente+" Não Encontrado");
+            throw new ServiceException(HttpStatus.BAD_REQUEST,"Cliente ID: "+idCliente+" Não Encontrado");
         }
 
         return makeClienteQuery(cliente.get());
     }
 
     @Override
-    public ClienteQuery atualizaCliente(ClienteParam clienteParam) throws ClienteException {
+    public ClienteQuery atualizaCliente(ClienteParam clienteParam) throws ServiceException {
         Optional<Cliente> cliente = clienteRepository.findById(clienteParam.getIdCliente());
         if(!cliente.isPresent()){
-            throw new ClienteException(HttpStatus.BAD_REQUEST,"Cliente ID: "+clienteParam.getIdCliente()+" Não Encontrado");
+            throw new ServiceException(HttpStatus.BAD_REQUEST,"Cliente ID: "+clienteParam.getIdCliente()+" Não Encontrado");
         }
         Cliente clienteAtualizar = makeClienteAtualizar(cliente.get(),clienteParam);
         clienteRepository.save(clienteAtualizar);
@@ -59,10 +57,10 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public void deletarCliente(Long idCliente) throws ClienteException {
+    public void deletarCliente(Long idCliente) throws ServiceException {
         Optional<Cliente> cliente = clienteRepository.findById(idCliente);
         if(!cliente.isPresent()){
-            throw new ClienteException(HttpStatus.BAD_REQUEST,"Cliente ID: "+idCliente+" Não Encontrado");
+            throw new ServiceException(HttpStatus.BAD_REQUEST,"Cliente ID: "+idCliente+" Não Encontrado");
         }
 
         clienteRepository.delete(cliente.get());

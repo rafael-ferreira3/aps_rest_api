@@ -1,4 +1,4 @@
-package br.com.aps_rest_api.helpers;
+package br.com.aps_rest_api.service.helpers;
 
 public class ConstraintExceptionMessages {
 
@@ -9,6 +9,8 @@ public class ConstraintExceptionMessages {
                 return "Usuário já cadastrado";
             case CLIENTE_EMAIL:
                 return "E-mail já cadastrado";
+            case CATEGORIA_DESCR:
+                return "Categoria já cadastrada";
             default:
                 return "Violação de contraint: "+constraintName;
         }

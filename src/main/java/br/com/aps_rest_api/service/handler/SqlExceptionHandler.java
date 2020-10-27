@@ -1,6 +1,6 @@
-package br.com.aps_rest_api.handler;
+package br.com.aps_rest_api.service.handler;
 
-import br.com.aps_rest_api.helpers.ConstraintExceptionMessages;
+import br.com.aps_rest_api.service.helpers.ConstraintExceptionMessages;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

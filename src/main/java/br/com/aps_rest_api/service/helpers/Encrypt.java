@@ -1,4 +1,4 @@
-package br.com.aps_rest_api.helpers;
+package br.com.aps_rest_api.service.helpers;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

@@ -3,8 +3,8 @@ package br.com.aps_rest_api.service.login;
 import br.com.aps_rest_api.endpoint.cliente.ClienteQuery;
 import br.com.aps_rest_api.endpoint.login.LoginParam;
 import br.com.aps_rest_api.endpoint.usuario.UsuarioQuery;
-import br.com.aps_rest_api.exception.LoginException;
-import br.com.aps_rest_api.helpers.Encrypt;
+import br.com.aps_rest_api.service.exception.ServiceException;
+import br.com.aps_rest_api.service.helpers.Encrypt;
 import br.com.aps_rest_api.model.cliente.Cliente;
 import br.com.aps_rest_api.model.usuario.Usuario;
 import br.com.aps_rest_api.repository.cliente.ClienteRepository;
@@ -24,19 +24,19 @@ public class LoginServiceImpl implements LoginService {
     ClienteRepository clienteRepository;
 
     @Override
-    public UsuarioQuery logarUsuario(LoginParam loginParam) throws LoginException {
+    public UsuarioQuery logarUsuario(LoginParam loginParam) throws ServiceException {
         Usuario usuarioEncontrado = usuarioRepository.findByUsernameAndSenha(loginParam.getUsername(), Encrypt.toMD5(loginParam.getSenha()));
         if (usuarioEncontrado == null) {
-            throw new LoginException(HttpStatus.UNAUTHORIZED, "Usuário ou senha incorreta");
+            throw new ServiceException(HttpStatus.UNAUTHORIZED, "Usuário ou senha incorreta");
         }
         return makeUsuarioQuery(usuarioEncontrado);
     }
 
     @Override
-    public ClienteQuery logarCliente(LoginParam loginParam) throws LoginException {
+    public ClienteQuery logarCliente(LoginParam loginParam) throws ServiceException {
         Cliente clienteLogado = clienteRepository.findByEmailAndSenha(loginParam.getUsername(), Encrypt.toMD5(loginParam.getSenha()));
         if (clienteLogado == null) {
-            throw new LoginException(HttpStatus.UNAUTHORIZED, "Usuário ou senha incorreta");
+            throw new ServiceException(HttpStatus.UNAUTHORIZED, "Usuário ou senha incorreta");
         }
 
         return makeClienteLogin(clienteLogado);

@@ -1,8 +1,9 @@
-package br.com.aps_rest_api.helpers;
+package br.com.aps_rest_api.service.helpers;
 
 public enum TipoConstraint {
     USUARIO_USERNAME("ck_username_unique"),
-    CLIENTE_EMAIL("ck_email_unique");
+    CLIENTE_EMAIL("ck_email_unique"),
+    CATEGORIA_DESCR("ck_cat_descr_unique");
 
     private final String constraintName;
 

@@ -2,8 +2,8 @@ package br.com.aps_rest_api.service.usuario;
 
 import br.com.aps_rest_api.endpoint.usuario.UsuarioQuery;
 import br.com.aps_rest_api.endpoint.usuario.UsuarioParam;
-import br.com.aps_rest_api.exception.UsuarioException;
-import br.com.aps_rest_api.helpers.Encrypt;
+import br.com.aps_rest_api.service.exception.ServiceException;
+import br.com.aps_rest_api.service.helpers.Encrypt;
 import br.com.aps_rest_api.model.usuario.Usuario;
 import br.com.aps_rest_api.repository.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +32,10 @@ public class UsuarioServiceImpl implements UsuarioService{
     }
 
     @Override
-    public UsuarioQuery atualizarUsuario(UsuarioParam usuarioParam) throws UsuarioException {
+    public UsuarioQuery atualizarUsuario(UsuarioParam usuarioParam) throws ServiceException {
         Optional<Usuario> usuario = usuarioRepository.findById(usuarioParam.getIdUsuario());
         if(!usuario.isPresent()){
-            throw new UsuarioException(HttpStatus.BAD_REQUEST,"Usuário Não Encontrado");
+            throw new ServiceException(HttpStatus.BAD_REQUEST,"Usuário Não Encontrado");
         }
         Usuario usuarioAtualizar = usuario.get();
         usuarioAtualizar.setNome(usuarioParam.getNome());
@@ -43,19 +43,19 @@ public class UsuarioServiceImpl implements UsuarioService{
     }
 
     @Override
-    public void deletarUsuario(long idUsuario) throws UsuarioException {
+    public void deletarUsuario(long idUsuario) throws ServiceException {
         Optional<Usuario> usuario = usuarioRepository.findById(idUsuario);
         if(!usuario.isPresent()){
-            throw new UsuarioException(HttpStatus.BAD_REQUEST,"Usuário ID: "+idUsuario+" Não Encontrado");
+            throw new ServiceException(HttpStatus.BAD_REQUEST,"Usuário ID: "+idUsuario+" Não Encontrado");
         }
         usuarioRepository.delete(usuario.get());
     }
 
     @Override
-    public UsuarioQuery buscaUsuarioId(Long idUsuario) throws UsuarioException {
+    public UsuarioQuery buscaUsuarioId(Long idUsuario) throws ServiceException {
         Optional<Usuario> usuario = usuarioRepository.findById(idUsuario);
         if(!usuario.isPresent()){
-            throw new UsuarioException(HttpStatus.BAD_REQUEST,"Usuário ID: "+idUsuario+" Não Encontrado");
+            throw new ServiceException(HttpStatus.BAD_REQUEST,"Usuário ID: "+idUsuario+" Não Encontrado");
         }
         return makeUsuarioQuery(usuario.get());
     }

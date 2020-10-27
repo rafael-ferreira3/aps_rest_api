@@ -1,13 +1,13 @@
-package br.com.aps_rest_api.exception;
+package br.com.aps_rest_api.service.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class UsuarioException extends RuntimeException{
+public class ServiceException extends RuntimeException{
 
     HttpStatus httpStatus;
     String message;
 
-    public UsuarioException(HttpStatus httpStatus, String message) {
+    public ServiceException(HttpStatus httpStatus, String message) {
         this.httpStatus = httpStatus;
         this.message = message;
     }
