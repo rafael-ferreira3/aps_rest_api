@@ -21,12 +21,12 @@ public class ClienteServiceImpl implements ClienteService {
     ClienteRepository clienteRepository;
 
     @Override
-    public void cadastrarCliente(ClienteParam clienteParam) throws ServiceException {
+    public ClienteQuery cadastrarCliente(ClienteParam clienteParam) throws ServiceException {
 
         Cliente cliente = makeCliente(clienteParam);
 
         Cliente saved = clienteRepository.save(cliente);
-        System.out.println(saved);
+        return makeClienteQuery(saved);
 
     }
 

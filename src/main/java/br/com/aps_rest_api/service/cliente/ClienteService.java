@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ClienteService {
 
-    void cadastrarCliente(ClienteParam clienteParam) throws ServiceException;
+    ClienteQuery cadastrarCliente(ClienteParam clienteParam) throws ServiceException;
 
     List<ClienteQuery> listaClientes();
 

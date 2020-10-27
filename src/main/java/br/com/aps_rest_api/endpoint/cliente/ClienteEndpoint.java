@@ -20,8 +20,8 @@ public class ClienteEndpoint {
 
     @PostMapping("/cliente")
     @ApiOperation("Cadastra um novo cliente")
-    public void cadastrarCliente(@RequestBody ClienteParam clienteParam) {
-        clienteService.cadastrarCliente(clienteParam);
+    public ClienteQuery cadastrarCliente(@RequestBody ClienteParam clienteParam) {
+        return clienteService.cadastrarCliente(clienteParam);
     }
 
     @GetMapping("/clientes")

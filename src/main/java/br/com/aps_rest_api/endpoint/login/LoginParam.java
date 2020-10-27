@@ -1,6 +1,10 @@
 package br.com.aps_rest_api.endpoint.login;
 
-public class LoginParam {
+import java.io.Serializable;
+
+public class LoginParam implements Serializable {
+
+    public LoginParam(){}
 
     String username;
     String senha;
@@ -19,5 +23,13 @@ public class LoginParam {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    @Override
+    public String toString() {
+        return "LoginParam{" +
+                "username='" + username + '\'' +
+                ", senha='" + senha + '\'' +
+                '}';
     }
 }
