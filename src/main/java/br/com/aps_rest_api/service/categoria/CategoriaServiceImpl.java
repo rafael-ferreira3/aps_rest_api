@@ -45,7 +45,7 @@ public class CategoriaServiceImpl implements CategoriaService{
     }
 
     private String makeImgLink(Long idCategoria){
-        return UrlConstant.URL+"/categoria/img/"+idCategoria;
+        return UrlConstant.URL+"/api/categoria/img/"+idCategoria;
     }
 
     private CategoriaQuery makeCategoriaQuery(Categoria categoria){
