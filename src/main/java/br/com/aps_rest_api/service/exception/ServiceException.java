@@ -28,4 +28,12 @@ public class ServiceException extends RuntimeException{
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return "ServiceException{" +
+                "httpStatus=" + httpStatus +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }
