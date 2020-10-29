@@ -35,6 +35,16 @@ public class CategoriaEndpoint {
         return categoriaService.getCategoriaImg(idCategoria);
     }
 
+    @PutMapping("/categoria")
+    @ApiOperation("Atualiza a Categoria")
+    public CategoriaQuery atualizaCategoria(@RequestBody CategoriaParam categoriaParam){
+        return categoriaService.atualizaCategoria(categoriaParam);
+    }
 
+    @DeleteMapping("/categoria/{idCategoria}")
+    @ApiOperation("Deleta uma categoria")
+    public void deletarCategoria(@PathVariable Long idCategoria){
+        categoriaService.deletarCategoria(idCategoria);
+    }
 
 }

@@ -1,9 +1,9 @@
 package br.com.aps_rest_api.service.categoria;
 
+import br.com.aps_rest_api.model.categoria.Categoria;
 import br.com.aps_rest_api.service.helpers.UrlConstant;
 import br.com.aps_rest_api.endpoint.categoria.CategoriaParam;
 import br.com.aps_rest_api.endpoint.categoria.CategoriaQuery;
-import br.com.aps_rest_api.model.categoria.Categoria;
 import br.com.aps_rest_api.repository.categoria.CategoriaRepository;
 import br.com.aps_rest_api.service.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,24 +32,63 @@ public class CategoriaServiceImpl implements CategoriaService{
     }
 
     @Override
-    public String getCategoriaImg(Long idCategoria) {
-        Optional<Categoria> categoria = categoriaRepository.findById(idCategoria);
+    public String getCategoriaImg(java.lang.Long idLong) {
+        Optional<Categoria> categoria = categoriaRepository.findById(idLong);
         if(!categoria.isPresent()){
-            throw new ServiceException(HttpStatus.BAD_REQUEST, "Categoria ID: "+idCategoria+" não encontrado");
+            throw new ServiceException(HttpStatus.BAD_REQUEST, "Categoria ID: "+ idLong +" não encontrado");
         }
         return categoria.get().getImg();
+    }
+
+    @Override
+    public CategoriaQuery atualizaCategoria(CategoriaParam categoriaParam) {
+
+        return makeCategoriaQuery(atualizarCategoria(categoriaParam));
+    }
+
+    @Override
+    public void deletarCategoria(java.lang.Long idLong) {
+        Optional<Categoria> categoria = categoriaRepository.findById(idLong);
+        if(!categoria.isPresent()){
+            throw new ServiceException(HttpStatus.BAD_REQUEST, "Categoria ID: "+ idLong +" não encontrado");
+        }
+        categoriaRepository.delete(categoria.get());
+    }
+
+    private Categoria atualizarCategoria(CategoriaParam categoriaParam) {
+
+        Optional<Categoria> categoria = categoriaRepository.findById(categoriaParam.getIdCategoria());
+
+        if(!categoria.isPresent()){
+            throw new ServiceException(HttpStatus.BAD_REQUEST, "Categoria ID: "+categoriaParam.getIdCategoria()+" não encontrado");
+        }
+
+        Categoria categoriaAtualizar = categoria.get();
+
+        categoriaAtualizar.setIdCategoria( categoriaParam.getIdCategoria());
+
+        if(categoriaParam.getDescr() != null){
+            categoriaAtualizar.setDescricao(categoriaParam.getDescr());
+        }
+
+        if(categoriaParam.getImg() != null){
+            categoriaAtualizar.setImg(categoriaParam.getImg());
+        }
+
+        return categoriaRepository.save(categoriaAtualizar);
+
     }
 
     private Categoria makeCategoria(CategoriaParam categoriaParam){
         return new Categoria(categoriaParam.getIdCategoria(), categoriaParam.getDescr(),categoriaParam.getImg());
     }
 
-    private String makeImgLink(Long idCategoria){
-        return UrlConstant.URL+"/api/categoria/img/"+idCategoria;
+    private String makeImgLink(java.lang.Long idLong){
+        return UrlConstant.URL+"/api/categoria/img/"+ idLong;
     }
 
     private CategoriaQuery makeCategoriaQuery(Categoria categoria){
-        return new CategoriaQuery(categoria.getIdCategoria(),categoria.getDescricao(),makeImgLink(categoria.getIdCategoria()));
+        return new CategoriaQuery(categoria.getIdCategoria(), categoria.getDescricao(),makeImgLink(categoria.getIdCategoria()));
     }
 
     private List<CategoriaQuery> makeListCategoriaQuery(List<Categoria> categorias){

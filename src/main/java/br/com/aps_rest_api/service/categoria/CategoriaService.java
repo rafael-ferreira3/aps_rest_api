@@ -14,4 +14,7 @@ public interface CategoriaService {
 
     String getCategoriaImg(Long idCategoria);
 
+    CategoriaQuery atualizaCategoria(CategoriaParam categoriaParam);
+
+    void deletarCategoria(Long idCategoria);
 }
