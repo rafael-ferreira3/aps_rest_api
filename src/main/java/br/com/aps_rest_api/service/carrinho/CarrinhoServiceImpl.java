@@ -2,6 +2,8 @@ package br.com.aps_rest_api.service.carrinho;
 
 import br.com.aps_rest_api.endpoint.carrinho.CarrinhoParam;
 import br.com.aps_rest_api.endpoint.carrinho.CarrinhoQuery;
+import br.com.aps_rest_api.endpoint.cliente.ClienteQuery;
+import br.com.aps_rest_api.endpoint.produto.ProdutoQuery;
 import br.com.aps_rest_api.model.carrinho.Carrinho;
 import br.com.aps_rest_api.model.cliente.Cliente;
 import br.com.aps_rest_api.model.produto.Produto;
@@ -17,6 +19,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static br.com.aps_rest_api.service.helpers.UrlConstant.URL;
+
 @Service
 public class CarrinhoServiceImpl implements CarrinhoService{
 
@@ -30,9 +34,15 @@ public class CarrinhoServiceImpl implements CarrinhoService{
     ProdutoRepository produtoRepository;
 
     @Override
-    public List<CarrinhoQuery> adicionarItemCarrinho(List<CarrinhoParam> carrinhosParam) {
-        List<Carrinho> carrinhos = makeCarrinhoList(carrinhosParam);
-        return makeCarrinhoQueryList(carrinhos.stream().map( c -> carrinhoRepository.save(c)).collect(Collectors.toList()));
+    public List<CarrinhoQuery> adicionarItemCarrinho(CarrinhoParam carrinhosParam) {
+        carrinhoRepository.save(makeCarrinho(carrinhosParam));
+        List<Carrinho> CarrinhoCliente = carrinhoRepository.findByIdCliente(carrinhosParam.getIdCliente());
+        return makeCarrinhoQueryList(CarrinhoCliente);
+    }
+
+    @Override
+    public List<CarrinhoQuery> buscaCarrinhoCliente(Long idCliente) {
+        return makeCarrinhoQueryList(carrinhoRepository.findByIdCliente(idCliente));
     }
 
     Carrinho makeCarrinho(CarrinhoParam carrinhoParam){
@@ -55,7 +65,7 @@ public class CarrinhoServiceImpl implements CarrinhoService{
     }
 
     CarrinhoQuery makeCarrinhoQuery(Carrinho carrinho){
-        return new CarrinhoQuery(carrinho.getIdCarrinho(),carrinho.getCliente().getIdCliente(),carrinho.getProduto().getIdProduto(),carrinho.getQuantidade());
+        return new CarrinhoQuery(carrinho.getIdCarrinho(),makeClienteQuery(carrinho.getCliente()),makeProdutoQuery(carrinho.getProduto()),carrinho.getQuantidade());
     }
 
     List<CarrinhoQuery> makeCarrinhoQueryList(List<Carrinho> listCarrinhos){
@@ -76,6 +86,18 @@ public class CarrinhoServiceImpl implements CarrinhoService{
             throw new ServiceException(HttpStatus.BAD_REQUEST,"Produto ID: "+idProduto+" não encontrado");
         }
         return produto.get();
+    }
+
+    ClienteQuery makeClienteQuery(Cliente cliente){
+        return new ClienteQuery(cliente.getIdCliente(), cliente.getNome(), cliente.getEmail(), cliente.getTelefone(), cliente.getRua(), cliente.getNumero());
+    }
+
+    ProdutoQuery makeProdutoQuery(Produto produto){
+        return new ProdutoQuery(produto.getIdProduto(), produto.getCategoria().getIdCategoria(),produto.getDescricao(),produto.getPreco(),makeImgUrl(produto.getIdProduto()));
+    }
+
+    String makeImgUrl(Long idProduto){
+        return URL+"/api/produto/img/"+idProduto;
     }
 
 }

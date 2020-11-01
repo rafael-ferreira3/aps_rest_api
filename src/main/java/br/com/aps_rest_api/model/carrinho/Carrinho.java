@@ -19,11 +19,11 @@ public class Carrinho implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_carrinho")
     private Long idCarrinho;
 
-    @ManyToOne(targetEntity = Cliente.class,fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Cliente.class,fetch = FetchType.EAGER)
     @JoinColumn(name = "idcliente")
     private Cliente cliente;
 
-    @ManyToOne(targetEntity = Produto.class,fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Produto.class,fetch = FetchType.EAGER)
     @JoinColumn(name = "idproduto")
     private Produto produto;
 

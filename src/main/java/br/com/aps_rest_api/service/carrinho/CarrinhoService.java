@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface CarrinhoService {
 
-    List<CarrinhoQuery> adicionarItemCarrinho(List<CarrinhoParam> carrinho);
+    List<CarrinhoQuery> adicionarItemCarrinho(CarrinhoParam carrinho);
+
+    List<CarrinhoQuery> buscaCarrinhoCliente(Long idCliente);
 
 }

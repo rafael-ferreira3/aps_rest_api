@@ -34,7 +34,7 @@ public class Produto implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_produto")
     private Long idProduto;
 
-    @ManyToOne(targetEntity = Categoria.class,fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Categoria.class,fetch = FetchType.EAGER)
     @JoinColumn(name = "idcategoria")
     private Categoria categoria;
 

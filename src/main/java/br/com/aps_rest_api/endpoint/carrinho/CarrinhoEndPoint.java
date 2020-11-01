@@ -1,6 +1,5 @@
 package br.com.aps_rest_api.endpoint.carrinho;
 
-import br.com.aps_rest_api.model.carrinho.Carrinho;
 import br.com.aps_rest_api.service.carrinho.CarrinhoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,8 +19,14 @@ public class CarrinhoEndPoint {
 
     @PostMapping("/carrinho")
     @ApiOperation("Adiciona Item no Carrinho")
-    List<CarrinhoQuery> adicionarItemCarrinho(@RequestBody List<CarrinhoParam> carrinho){
+    List<CarrinhoQuery> adicionarItemCarrinho(@RequestBody CarrinhoParam carrinho){
         return carrinhoService.adicionarItemCarrinho(carrinho);
+    }
+
+    @GetMapping("/carrinho/{idCliente}")
+    @ApiOperation("Busca o carrinho de um cliente")
+    List<CarrinhoQuery> buscaCarrinhoCliente(@PathVariable Long idCliente){
+        return carrinhoService.buscaCarrinhoCliente(idCliente);
     }
 
 }
