@@ -45,6 +45,29 @@ public class CarrinhoServiceImpl implements CarrinhoService{
         return makeCarrinhoQueryList(carrinhoRepository.findByIdCliente(idCliente));
     }
 
+    @Override
+    public void incrementaItemCarrinho(Long idCliente, Long idCarrinho) {
+        Carrinho carrinho = buscaCarrinho(idCliente, idCarrinho);
+        carrinho.setQuantidade(carrinho.getQuantidade() + 1);
+        carrinhoRepository.save(carrinho);
+    }
+
+    @Override
+    public void decrementaItemCarrinho(Long idCliente, Long idCarrinho) {
+        Carrinho carrinho = buscaCarrinho(idCliente, idCarrinho);
+        if(carrinho.getQuantidade() <= 1){
+             throw new ServiceException(HttpStatus.BAD_REQUEST,"Não pode decrementar itens com quantidade igual à 1");
+        }
+        carrinho.setQuantidade(carrinho.getQuantidade() - 1);
+        carrinhoRepository.save(carrinho);
+    }
+
+    @Override
+    public void removeItemCarrinho(Long idCliente, Long idCarrinho) {
+        Carrinho carrinho = buscaCarrinho(idCliente, idCarrinho);
+        carrinhoRepository.delete(carrinho);
+    }
+
     Carrinho makeCarrinho(CarrinhoParam carrinhoParam){
         Cliente cliente = buscaCliente(carrinhoParam.getIdCliente());
         Produto produto = buscaProduto(carrinhoParam.getIdProduto());
@@ -98,6 +121,14 @@ public class CarrinhoServiceImpl implements CarrinhoService{
 
     String makeImgUrl(Long idProduto){
         return URL+"/api/produto/img/"+idProduto;
+    }
+
+    Carrinho buscaCarrinho(Long idCliente, Long idCarrinho){
+        Carrinho carrinho = carrinhoRepository.findByIdClienteAndIdCarrinho(idCliente,idCarrinho);
+        if(carrinho == null){
+            throw new ServiceException(HttpStatus.BAD_REQUEST,"Item carrinho não encontrado");
+        }
+        return carrinho;
     }
 
 }

@@ -29,4 +29,21 @@ public class CarrinhoEndPoint {
         return carrinhoService.buscaCarrinhoCliente(idCliente);
     }
 
+    @PutMapping("/carrinho/increment/{idCliente}/{idCarrinho}")
+    @ApiOperation("Incrementa em 1 a quantidade do item")
+    void incrementarProduto(@PathVariable Long idCliente, @PathVariable Long idCarrinho){
+        carrinhoService.incrementaItemCarrinho(idCliente, idCarrinho);
+    }
+
+    @PutMapping("/carrinho/decrement/{idCliente}/{idCarrinho}")
+    @ApiOperation("Decrementa em 1 a quantidade do item")
+    void decrementarProduto(@PathVariable Long idCliente, @PathVariable Long idCarrinho){
+        carrinhoService.decrementaItemCarrinho(idCliente, idCarrinho);
+    }
+
+    @DeleteMapping("/carrinho/{idCliente}/{idCarrinho}")
+    @ApiOperation("Deleta o Item do Carrinho")
+    void removerItemCarrinho(@PathVariable Long idCliente, @PathVariable Long idCarrinho){
+        carrinhoService.removeItemCarrinho(idCliente, idCarrinho);
+    }
 }

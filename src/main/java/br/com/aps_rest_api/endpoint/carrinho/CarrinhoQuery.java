@@ -2,8 +2,6 @@ package br.com.aps_rest_api.endpoint.carrinho;
 
 import br.com.aps_rest_api.endpoint.cliente.ClienteQuery;
 import br.com.aps_rest_api.endpoint.produto.ProdutoQuery;
-import br.com.aps_rest_api.model.cliente.Cliente;
-import br.com.aps_rest_api.model.produto.Produto;
 
 import java.io.Serializable;
 
@@ -13,10 +11,10 @@ public class CarrinhoQuery implements Serializable {
 
     }
 
-    public CarrinhoQuery(Long idCarrinho, ClienteQuery cliente, ProdutoQuery idProduto, Integer quantidade) {
+    public CarrinhoQuery(Long idCarrinho, ClienteQuery cliente, ProdutoQuery produto, Integer quantidade) {
         this.idCarrinho = idCarrinho;
         this.cliente = cliente;
-        this.idProduto = idProduto;
+        this.produto = produto;
         this.quantidade = quantidade;
     }
 
@@ -24,7 +22,7 @@ public class CarrinhoQuery implements Serializable {
 
     private ClienteQuery cliente;
 
-    private ProdutoQuery idProduto;
+    private ProdutoQuery produto;
 
     private Integer quantidade;
 
@@ -44,12 +42,12 @@ public class CarrinhoQuery implements Serializable {
         this.cliente = cliente;
     }
 
-    public ProdutoQuery getIdProduto() {
-        return idProduto;
+    public ProdutoQuery getProduto() {
+        return produto;
     }
 
-    public void setIdProduto(ProdutoQuery idProduto) {
-        this.idProduto = idProduto;
+    public void setProduto(ProdutoQuery produto) {
+        this.produto = produto;
     }
 
     public Integer getQuantidade() {
@@ -65,7 +63,7 @@ public class CarrinhoQuery implements Serializable {
         return "CarrinhoQuery{" +
                 "idCarrinho=" + idCarrinho +
                 ", cliente=" + cliente +
-                ", idProduto=" + idProduto +
+                ", idProduto=" + produto +
                 ", quantidade=" + quantidade +
                 '}';
     }

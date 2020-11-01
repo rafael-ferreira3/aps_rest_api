@@ -11,4 +11,9 @@ public interface CarrinhoService {
 
     List<CarrinhoQuery> buscaCarrinhoCliente(Long idCliente);
 
+    void incrementaItemCarrinho(Long idCliente, Long idCarrinho);
+
+    void decrementaItemCarrinho(Long idCliente, Long idCarrinho);
+
+    void removeItemCarrinho(Long idCliente, Long idCarrinho);
 }
