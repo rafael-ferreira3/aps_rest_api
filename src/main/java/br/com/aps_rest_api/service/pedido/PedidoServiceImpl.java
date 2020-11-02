@@ -68,7 +68,9 @@ public class PedidoServiceImpl implements PedidoService{
     private PedidoItemQuery makePedidoItemQuery(PedidoItem pedidoItem){
         PedidoItemQuery pedidoItemQuery = new PedidoItemQuery();
         pedidoItemQuery.setIdPedidoItem(pedidoItem.getIdPedidoItem());
-        pedidoItemQuery.setIdPedido(pedidoItem.getPedido().getIdPedido());
+        if(pedidoItem.getPedido() != null){
+            pedidoItemQuery.setIdPedido(pedidoItem.getPedido().getIdPedido());
+        }
         pedidoItemQuery.setProduto(makeProdutoQuery(pedidoItem.getProduto()));
         pedidoItemQuery.setQuantidade(pedidoItem.getQuantidade());
 
