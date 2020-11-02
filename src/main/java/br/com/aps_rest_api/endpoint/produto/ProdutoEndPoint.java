@@ -36,4 +36,10 @@ public class ProdutoEndPoint {
         return produtoService.buscaImagemProduto(idProduto);
     }
 
+    @GetMapping("/produtos")
+    @ApiOperation("Busca todos os produtos")
+    List<ProdutoQuery> buscaTodosProdutos(){
+        return produtoService.buscaTodosProdutos();
+    }
+
 }

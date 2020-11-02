@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static br.com.aps_rest_api.service.helpers.UrlConstant.URL;
 
@@ -47,6 +48,11 @@ public class ProdutoServiceImpl implements ProdutoService {
         return produto.get().getImg();
     }
 
+    @Override
+    public List<ProdutoQuery> buscaTodosProdutos() {
+        return makeProdutoQueryList(produtoRepository.findAll());
+    }
+
     String makeImgUrl(Long idProduto){
         return URL+"/api/produto/img/"+idProduto;
     }
@@ -56,11 +62,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     }
 
     List<ProdutoQuery> makeProdutoQueryList(List<Produto> produtos){
-        List<ProdutoQuery> produtoQueries = new ArrayList<>();
-        for(Produto produto : produtos){
-            produtoQueries.add(makeProdutoQuery(produto));
-        }
-        return produtoQueries;
+        return produtos.stream().map(this::makeProdutoQuery).collect(Collectors.toList());
     }
 
     Produto makeProduto(ProdutoParam produtoParam){

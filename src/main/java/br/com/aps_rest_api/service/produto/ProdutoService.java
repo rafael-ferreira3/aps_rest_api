@@ -13,4 +13,6 @@ public interface ProdutoService {
 
     String buscaImagemProduto(Long idProduto);
 
+    List<ProdutoQuery> buscaTodosProdutos();
+
 }
