@@ -53,6 +53,19 @@ public class ProdutoServiceImpl implements ProdutoService {
         return makeProdutoQueryList(produtoRepository.findAll());
     }
 
+    @Override
+    public List<ProdutoQuery> buscaTodosProdutosComImagemBase64() {
+        return makeProdutoComImagemQueryList(produtoRepository.findAll());
+    }
+
+    List<ProdutoQuery> makeProdutoComImagemQueryList(List<Produto> produtos){
+        return produtos.stream().map(this::makeProdutoComImagemQuery).collect(Collectors.toList());
+    }
+
+    ProdutoQuery makeProdutoComImagemQuery(Produto produto){
+        return new ProdutoQuery(produto.getIdProduto(), produto.getCategoria().getIdCategoria(),produto.getDescricao(),produto.getPreco(),produto.getImg());
+    }
+
     String makeImgUrl(Long idProduto){
         return URL+"/api/produto/img/"+idProduto;
     }

@@ -42,4 +42,10 @@ public class ProdutoEndPoint {
         return produtoService.buscaTodosProdutos();
     }
 
+    @GetMapping("/produtosComImg")
+    @ApiOperation("Busca todos os produtos com as imagens em base64")
+    List<ProdutoQuery> buscaTodosProdutosComImagemBase64(){
+        return produtoService.buscaTodosProdutosComImagemBase64();
+    }
+
 }
