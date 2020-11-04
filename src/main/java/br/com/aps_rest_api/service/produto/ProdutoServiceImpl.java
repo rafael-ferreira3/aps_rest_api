@@ -58,6 +58,12 @@ public class ProdutoServiceImpl implements ProdutoService {
         return makeProdutoComImagemQueryList(produtoRepository.findAll());
     }
 
+    @Override
+    public List<ProdutoQuery> buscaProdutosComImagemCategoria(Long idCategoria) {
+        List<Produto> produtos = produtoRepository.buscaProdutoCategoria(idCategoria);
+        return makeProdutoComImagemQueryList(produtos);
+    }
+
     List<ProdutoQuery> makeProdutoComImagemQueryList(List<Produto> produtos){
         return produtos.stream().map(this::makeProdutoComImagemQuery).collect(Collectors.toList());
     }

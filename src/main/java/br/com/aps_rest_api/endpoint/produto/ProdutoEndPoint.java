@@ -48,4 +48,10 @@ public class ProdutoEndPoint {
         return produtoService.buscaTodosProdutosComImagemBase64();
     }
 
+    @GetMapping("/produtosComImg/categoria/{idCategoria}")
+    @ApiOperation("Lista todos os Produtos de uma categoria com Imagem base64")
+    List<ProdutoQuery> buscaProdutosComImagemCategoria(@PathVariable Long idCategoria){
+        return produtoService.buscaProdutosComImagemCategoria(idCategoria);
+    }
+
 }

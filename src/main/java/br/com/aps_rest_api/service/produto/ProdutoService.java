@@ -17,4 +17,7 @@ public interface ProdutoService {
 
     List<ProdutoQuery> buscaTodosProdutosComImagemBase64();
 
+    List<ProdutoQuery> buscaProdutosComImagemCategoria(Long idCategoria);
+
+
 }
