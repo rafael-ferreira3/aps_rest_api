@@ -5,13 +5,13 @@ public class GerarPedidoParam {
     public GerarPedidoParam() {
     }
 
-    private Long idCLiente;
+    private Long idCliente;
 
-    public Long getIdCLiente() {
-        return idCLiente;
+    public Long getIdCliente() {
+        return idCliente;
     }
 
-    public void setIdCLiente(Long idCLiente) {
-        this.idCLiente = idCLiente;
+    public void setIdCliente(Long idCliente) {
+        this.idCliente = idCliente;
     }
 }

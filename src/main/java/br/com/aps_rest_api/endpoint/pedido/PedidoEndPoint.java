@@ -20,7 +20,7 @@ public class PedidoEndPoint {
     @PostMapping("/pedido")
     @ApiOperation("Cria o Pedido Baseado em um carrinho")
     public PedidoQuery gerarPedido(@RequestBody GerarPedidoParam gerarPedidoParam){
-        return pedidoService.gerarPedido(gerarPedidoParam.getIdCLiente());
+        return pedidoService.gerarPedido(gerarPedidoParam.getIdCliente());
     }
 
     @GetMapping("/pedidos/{idCliente}")

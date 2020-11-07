@@ -64,6 +64,25 @@ public class ProdutoServiceImpl implements ProdutoService {
         return makeProdutoComImagemQueryList(produtos);
     }
 
+    @Override
+    public void deletarProduto(Long idProduto) {
+        Optional<Produto> produto = produtoRepository.findById(idProduto);
+        if(!produto.isPresent()){
+            throw new ServiceException(HttpStatus.BAD_REQUEST,"Produto ID: "+idProduto+" não encontrado");
+        }
+        produtoRepository.delete(produto.get());
+    }
+
+    @Override
+    public ProdutoQuery alterarProduto(ProdutoParam produtoParam) {
+        Optional<Produto> produto = produtoRepository.findById(produtoParam.getIdProduto());
+        if(!produto.isPresent()){
+            throw new ServiceException(HttpStatus.BAD_REQUEST,"Produto ID: "+produtoParam.getIdProduto()+" não encontrado");
+        }
+        Produto produtoAlterar = makeProdutoAlterar(produto.get(), produtoParam);
+        return makeProdutoQuery(produtoRepository.save(produtoAlterar));
+    }
+
     List<ProdutoQuery> makeProdutoComImagemQueryList(List<Produto> produtos){
         return produtos.stream().map(this::makeProdutoComImagemQuery).collect(Collectors.toList());
     }
@@ -86,6 +105,26 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     Produto makeProduto(ProdutoParam produtoParam){
         return new Produto(produtoParam.getIdCategoria(),buscaCategoria(produtoParam.getIdCategoria()),produtoParam.getDescricao(), produtoParam.getPreco(), produtoParam.getImg());
+    }
+
+    Produto makeProdutoAlterar(Produto produto, ProdutoParam produtoParam){
+        if(produtoParam.getIdCategoria() != null){
+            produto.setCategoria(buscaCategoria(produtoParam.getIdCategoria()));
+        }
+
+        if(produtoParam.getDescricao() != null){
+            produto.setDescricao(produtoParam.getDescricao());
+        }
+
+        if(produtoParam.getPreco() != null){
+            produto.setPreco(produtoParam.getPreco());
+        }
+
+        if(produtoParam.getImg() != null){
+            produto.setImg(produtoParam.getImg());
+        }
+
+        return produto;
     }
 
     Categoria buscaCategoria(Long idCategoria){

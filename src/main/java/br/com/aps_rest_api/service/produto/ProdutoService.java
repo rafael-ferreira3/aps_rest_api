@@ -19,5 +19,8 @@ public interface ProdutoService {
 
     List<ProdutoQuery> buscaProdutosComImagemCategoria(Long idCategoria);
 
+    void deletarProduto(Long idProduto);
+
+    ProdutoQuery alterarProduto(ProdutoParam produtoParam);
 
 }

@@ -54,4 +54,15 @@ public class ProdutoEndPoint {
         return produtoService.buscaProdutosComImagemCategoria(idCategoria);
     }
 
+    @DeleteMapping("/produto/{idProduto}")
+    @ApiOperation("Deleta Um Produto")
+    void deletarProduto(@PathVariable Long idProduto){
+        produtoService.deletarProduto(idProduto);
+    }
+
+    @PutMapping("/produto")
+    @ApiOperation("Altera Um Produto")
+    ProdutoQuery alterarProduto(@RequestBody ProdutoParam produtoParam){
+        return produtoService.alterarProduto(produtoParam);
+    }
 }
