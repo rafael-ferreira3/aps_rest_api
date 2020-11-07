@@ -30,6 +30,12 @@ public class ProdutoEndPoint {
         return produtoService.buscaProdutoCategoria(idCategoria);
     }
 
+    @GetMapping("/produto/{idProduto}")
+    @ApiOperation("Busca Um produto por ID")
+    ProdutoQuery buscaProdutoById(@PathVariable Long idProduto){
+        return produtoService.buscaProdutoById(idProduto);
+    }
+
     @GetMapping("/produto/img/{idProduto}")
     @ApiOperation("Busca imagem do Produto")
     String buscaImagemProduto(@PathVariable Long idProduto){

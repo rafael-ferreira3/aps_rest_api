@@ -23,4 +23,6 @@ public interface ProdutoService {
 
     ProdutoQuery alterarProduto(ProdutoParam produtoParam);
 
+    ProdutoQuery buscaProdutoById(Long idProduto);
+
 }

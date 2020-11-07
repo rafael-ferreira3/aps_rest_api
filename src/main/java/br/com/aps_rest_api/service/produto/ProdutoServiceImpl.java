@@ -83,6 +83,15 @@ public class ProdutoServiceImpl implements ProdutoService {
         return makeProdutoQuery(produtoRepository.save(produtoAlterar));
     }
 
+    @Override
+    public ProdutoQuery buscaProdutoById(Long idProduto) {
+        Optional<Produto> produto = produtoRepository.findById(idProduto);
+        if(!produto.isPresent()){
+            throw new ServiceException(HttpStatus.BAD_REQUEST,"Produto ID: "+idProduto+" não encontrado");
+        }
+        return makeProdutoQuery(produto.get());
+    }
+
     List<ProdutoQuery> makeProdutoComImagemQueryList(List<Produto> produtos){
         return produtos.stream().map(this::makeProdutoComImagemQuery).collect(Collectors.toList());
     }
